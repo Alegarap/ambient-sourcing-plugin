@@ -30,28 +30,55 @@ Query Lunar Ventures' ambient sourcing database directly from Claude Code. Searc
 
 ## Setup
 
-```bash
-# 1. Clone the plugin
-git clone git@github.com:lunar-ventures/ambient-sourcing-plugin.git ~/.claude/plugins/ambient-sourcing
-
-# 2. Run setup (checks 1Password, tests connectivity, adds shell function)
-~/.claude/plugins/ambient-sourcing/setup.sh
-```
-
-The setup script will:
-1. Install npm dependencies and build the TypeScript server
-2. Verify your 1Password CLI is installed and signed in
-3. Check you have access to the `lunar-secrets` vault
-4. Test Supabase connectivity
-5. Offer to add a `claude-sourcing` shell function to your profile
-
-### Launching Claude with credentials
-
-After setup, use the shell function to launch Claude with secrets injected:
+### Step 1: Install the plugin
 
 ```bash
-claude-sourcing
+# Add the marketplace (one-time)
+claude plugin marketplace add https://github.com/Alegarap/ambient-sourcing-plugin.git
+
+# Install the plugin
+claude plugin install ambient-sourcing@lunar-sourcing
 ```
+
+Restart Claude Code after installing. The plugin's MCP server and skill will load automatically.
+
+### Step 2: Configure credentials (1Password)
+
+All credentials live in the **lunar-secrets** 1Password vault. You need the 1Password CLI to resolve them at runtime.
+
+```bash
+# Install 1Password CLI (if not already)
+brew install 1password-cli
+
+# Sign in
+op signin
+
+# Verify vault access
+op vault list  # should show lunar-secrets
+```
+
+### Step 3: Launch Claude with secrets
+
+Add this function to your `~/.zshrc` (or `~/.bashrc`):
+
+```bash
+claude-sourcing() {
+    local plugin_env="$HOME/.claude/plugins/cache/lunar-sourcing/ambient-sourcing"
+    local env_file=$(find "$plugin_env" -name ".env.1password" 2>/dev/null | head -1)
+    if [ -z "$env_file" ]; then
+        echo "Plugin .env.1password not found. Is the plugin installed?"
+        return 1
+    fi
+    local resolved
+    resolved=$(op run --no-masking --env-file="$env_file" -- printenv | grep -E '^(SUPABASE_|OPENROUTER_)') || return 1
+    while IFS='=' read -r key value; do
+        export "$key=$value"
+    done <<< "$resolved"
+    claude
+}
+```
+
+Then: `source ~/.zshrc && claude-sourcing`
 
 This resolves `op://` references from 1Password at runtime — no secrets are written to disk.
 
