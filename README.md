@@ -89,7 +89,7 @@ All credentials are in the **Supabase Ambient Sourcing** item in the **lunar-sec
 | Credential | 1Password field | Required for |
 |-----------|----------------|-------------|
 | `SUPABASE_SERVICE_ROLE_KEY` | `service role key` | All tools |
-| `OPENROUTER_API_KEY` | `OpenRouter Ambient Sourcing CC Plugin` | Semantic search only |
+| `OPENROUTER_KEY_AMBIENT_SOURCING_PLUGIN` | `OpenRouter Ambient Sourcing CC Plugin` | Semantic search only |
 
 The `.env.1password` file contains `op://` references that are resolved at runtime. It's safe to commit — it contains no actual secrets.
 
@@ -117,7 +117,7 @@ Claude will use the MCP tools automatically to query the database and present re
 
 **"SUPABASE_SERVICE_ROLE_KEY not set"** — You launched Claude without credentials. Use `claude-sourcing` instead of `claude`.
 
-**"OPENROUTER_API_KEY not set"** — Semantic search won't work, but keyword search and all other tools will. Check the OpenRouter field in 1Password.
+**"OPENROUTER_KEY_AMBIENT_SOURCING_PLUGIN not set"** — Semantic search won't work, but keyword search and all other tools will. Check the OpenRouter field in 1Password.
 
 **"Cannot access lunar-secrets vault"** — Ask Alejandro to share the vault, or run `op signin` to refresh your session.
 

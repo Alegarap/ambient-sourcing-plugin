@@ -1,9 +1,9 @@
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_KEY = process.env.OPENROUTER_KEY_AMBIENT_SOURCING_PLUGIN;
 
 export async function generateEmbedding(text: string): Promise<number[]> {
-  if (!OPENROUTER_API_KEY) {
+  if (!OPENROUTER_KEY) {
     throw new Error(
-      "OPENROUTER_API_KEY not set — semantic search is unavailable. " +
+      "OPENROUTER_KEY_AMBIENT_SOURCING_PLUGIN not set — semantic search is unavailable. " +
         "Set the env var or run setup.sh to configure 1Password credentials."
     );
   }
@@ -11,7 +11,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
   const res = await fetch("https://openrouter.ai/api/v1/embeddings", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${OPENROUTER_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
