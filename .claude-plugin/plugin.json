@@ -1,0 +1,7 @@
+{
+  "name": "ambient-sourcing",
+  "version": "1.0.0",
+  "description": "Query Lunar Ventures' ambient sourcing database — search themes, deals, clusters, and hotness scores across 6+ data sources.",
+  "author": { "name": "Lunar Ventures" },
+  "repository": "https://github.com/lunar-ventures/ambient-sourcing-plugin"
+}

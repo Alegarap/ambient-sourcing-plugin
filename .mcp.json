@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ambient-sourcing": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/index.js"],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_ROLE_KEY": "${SUPABASE_SERVICE_ROLE_KEY}",
+        "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+      }
+    }
+  }
+}
