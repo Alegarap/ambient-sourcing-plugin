@@ -1,0 +1,19 @@
+{
+  "name": "lunar-sourcing",
+  "description": "Lunar Ventures ambient sourcing plugins",
+  "owner": {
+    "name": "Lunar Ventures",
+    "email": "alejandro@lunarventures.eu"
+  },
+  "plugins": [
+    {
+      "name": "ambient-sourcing",
+      "description": "Query Lunar Ventures' ambient sourcing database — 13 MCP tools for themes, deals, clusters, and hotness scores.",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Alegarap/ambient-sourcing-plugin.git"
+      },
+      "homepage": "https://github.com/Alegarap/ambient-sourcing-plugin"
+    }
+  ]
+}
